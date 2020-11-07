@@ -1,0 +1,274 @@
+body{
+  font-family: 'NotoSans-Regular,"Helvetica Neue",Helvetica,Arial,sans-serif;';
+  color: #000000 !important;
+  background-color: #FFFFFF;
+  font-size: 20px;
+ }
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
+}
+.logo {
+  display: block;
+  margin-top: 3px;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+.header {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  box-shadow: 0 5px 10px -8px grey;
+  padding: 0 !important;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+.header-search {
+    border: hidden;
+    outline: none;
+    width: 100vm;
+    margin-top: 1em;
+}
+.nav-link {color: black;}
+.row .col-md-6 .body-color{
+  color: black !important;
+  padding: 0 !important;
+}
+.bg-white{
+  background-size: 5px;
+}
+.text-header{
+  color: #212529;
+}
+.nav-bar {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+.carousel-inner img {
+  width: 100%;
+  height: 160px;
+}
+.carousel-caption{
+  opacity:0;
+  transition:500ms ease-in-out;
+
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: .5s ease;
+}
+.carousel-item:hover .carousel-caption{
+  opacity:1;
+  height: 100%;
+}
+
+.topic{
+  font-weight: bold;
+  margin-top: 20px ;
+  margin-bottom: 10px ;
+  text-align: left;
+}
+.text{
+
+}
+.text img{
+ width: 100%;
+ height: 100%;
+}
+.more{
+  float:right;
+  font-size: 14px;
+  margin-top: 7px;
+  color: rgb(148, 146, 146);
+}
+
+.title a{
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+}
+
+.text > a:last-child{
+  font-size: 13px;
+  color:#99A3AD;
+}
+.text > a:last-child img{
+  border-radius: 50%;
+}
+.text a{
+  color:black;
+}
+.text h6{
+  font-size: 15px;
+}
+.text{
+  padding-left: 3px !important;
+  padding-right: 3px !important;
+}
+.border{
+  padding-left: 0;
+  padding-right: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  
+}
+img{
+  width: 100%;
+}
+.img-thumbnail{
+  padding: 0;
+  border:none !important;
+}
+.blockpost>a{
+  padding-left: 0 !important;
+  width: 80% !important;
+}
+.author{
+  position: absolute;
+  bottom: 5px;
+  font-size: 13px;
+  color:#99A3AD;
+  margin-top: 0;
+}
+.author > a:last-child{
+  font-size: 13px;
+  color:#99A3AD;
+}
+.background {
+  /* The image used */
+  background-image: url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max");
+
+  /* Half height */
+  height: 400px;
+ 
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.nav-color{
+  color: #99A3AD;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+  margin-top: 0px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-right: 10px;
+  padding-left: 30px;
+  color: #555d63;
+  font-weight: bold;
+  background-color: #FFFFFF;
+  font-size: 18px;
+}
+.nav-link.disabled {
+  color: #6c757d;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-right: 10px;
+  padding-left: 30px;
+  font-size: 18px;
+}
+ul.nav-pills a:hover{
+  color:black !important;
+}
+.new-feed{
+  margin-top: 1em;
+  background-color: white ;
+  height: 450px;
+  border-radius: 1%;
+  box-sizing: border-box;
+  padding: 20px;
+}
+.account{
+  font-size: 16px;
+}
+.account a:nth-child(2) {
+  color: #2C3E50;
+}
+.topic-title{
+}
+div.account a:last-child{
+  color: #2C3E50;;
+}
+.fa-heart-pink{
+  color: red;
+}
+div.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding-top: 50px;
+  font-size: 20px;
+}
+.pagination {
+  display: inline-block;
+  padding-left: 160px !important;
+  margin-top: 10px;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pagination a.active {
+  background-color: rgb(54, 194, 230);
+  color: white;
+  border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+  border-radius: 5px;
+}
+.center_div{
+  margin: 0 auto;
+  width:80% /* value of your choice which suits your alignment */
+}
+/* Register Page*/
+.register-form{
+  position: relative;
+  left: 30%;
+  top: 180px;
+}
+input:focus {
+  background-color: white;
+  outline-color: rgb(228, 63, 63);
+}
+.btn-block{
+  width: 22.5% !important;
+}
+#imageUpload
+{
+    display: none;
+}
+
+#profileImage
+{
+    cursor: pointer;
+}
+.profile{
+  font-size: 15px;
+  height: 480px;
+}
