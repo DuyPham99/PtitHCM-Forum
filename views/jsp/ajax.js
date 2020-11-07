@@ -1,3 +1,0 @@
-$(function {
-    vả $orders = $({'#orders'});
-})
