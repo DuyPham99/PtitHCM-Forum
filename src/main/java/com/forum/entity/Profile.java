@@ -17,8 +17,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "profile")
 public class Profile {
 	@Id
-	@OneToOne
-	@JoinColumn(name = "username")
+//	@OneToOne
+//	@JoinColumn(name = "username")
 	String username;
 
 	String avatar;

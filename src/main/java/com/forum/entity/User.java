@@ -5,14 +5,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "User")
+@Table(name = "user")
 public class User {
 	@Id
 	String username;
 	String email;
 	String password;
-	
-	
 	
 	public User() {
 		super();
