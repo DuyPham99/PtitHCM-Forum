@@ -35,9 +35,9 @@
 	src="../froala-editor/js/froala_editor.pkgd.min.js"></script>
 <link href="../froala-editor/css/froala_style.min.css" rel="stylesheet"
 	type="text/css" />
-	
 
-	
+
+
 </head>
 
 <body style="background: #f2f2f2;">
@@ -140,14 +140,14 @@
 		<!-- <div id="example">
          
       </div> -->
-		
-		
+
+
 		<div id="froala-editor">
-		<form action="save" method="POST">
-			<textarea name="editor" id="editor" cols="30" rows="10">${text}</textarea>
-			<button id="saveButton" class="btn btn-primary mt-1">Đăng
-				bài</button>
-		</form> 
+			<form action="save" method="POST">
+				<textarea name="editor" id="editor" cols="30" rows="10"></textarea>
+				<button id="saveButton" class="btn btn-primary mt-1">Đăng
+					bài</button>
+			</form>
 		</div>
 
 
@@ -157,15 +157,35 @@
 	<br>
 </body>
 <script>
-	 var editor = new FroalaEditor('#editor', {
-		imageUploadURL: '/upload_image',
+	var editor = new FroalaEditor('#editor', {
+		imageUploadParam : 'image',
+		imageUploadURL : '/editor/upload_image',
+		imageAllowedTypes : [ 'jpeg', 'jpg', 'png' ],
+		imageMaxSize : 5 * 1024 * 1024,
+		imageUploadMethod : 'POST',
 		heightMin : 500,
 		heightMax : 400,
 		pluginsEnabled : [ "align", "charCounter", "codeBeautifier", "colors",
 				"draggable", "embedly", "emoticons", "entities", "fontFamily",
 				"fontSize", "image", "imageManager", "inlineStyle",
 				"lineBreaker", "fileUpload", "lists", "paragraphFormat",
-				"paragraphStyle", "quote", "save", "url", "wordPaste" ]
+				"paragraphStyle", "quote", "save", "url", "wordPaste" ],
+				  events: {
+				      'image.removed': function ($img) {
+				        var xhttp = new XMLHttpRequest();
+				        xhttp.onreadystatechange = function() {
+
+				          // Image was removed.
+				          if (this.readyState == 4 && this.status == 200) {
+				             console.log ('image was deleted');
+				          }
+				        };
+				        xhttp.open("POST", "/editor/image_delete", true);
+				        xhttp.send(JSON.stringify({
+				          src: $img.attr('src')
+				        }));
+				      }
+				    }
 	})
 </script>
 
