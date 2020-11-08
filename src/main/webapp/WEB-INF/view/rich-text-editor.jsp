@@ -35,6 +35,9 @@
 	src="../froala-editor/js/froala_editor.pkgd.min.js"></script>
 <link href="../froala-editor/css/froala_style.min.css" rel="stylesheet"
 	type="text/css" />
+	
+
+	
 </head>
 
 <body style="background: #f2f2f2;">
@@ -137,18 +140,24 @@
 		<!-- <div id="example">
          
       </div> -->
+		
+		
+		<div id="froala-editor">
 		<form action="save" method="POST">
 			<textarea name="editor" id="editor" cols="30" rows="10">${text}</textarea>
 			<button id="saveButton" class="btn btn-primary mt-1">Đăng
 				bài</button>
-		</form>
+		</form> 
+		</div>
+
+
 
 	</div>
 	<br>
 	<br>
 </body>
 <script>
-	/* var editor = new FroalaEditor('#editor', {
+	 var editor = new FroalaEditor('#editor', {
 		imageUploadURL: '/upload_image',
 		heightMin : 500,
 		heightMax : 400,
@@ -156,14 +165,9 @@
 				"draggable", "embedly", "emoticons", "entities", "fontFamily",
 				"fontSize", "image", "imageManager", "inlineStyle",
 				"lineBreaker", "fileUpload", "lists", "paragraphFormat",
-				"paragraphStyle", "quote", "save", "url", "wordPaste" ],
-	}) */
+				"paragraphStyle", "quote", "save", "url", "wordPaste" ]
+	})
 </script>
-<script>
-  new FroalaEditor('#editor', {
-    // Set the image upload URL.
-    imageUploadURL: '/upload_image'
-  })
-</script>
+
 
 </html>
