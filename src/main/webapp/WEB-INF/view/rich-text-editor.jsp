@@ -149,9 +149,6 @@
 					bài</button>
 			</form>
 		</div>
-
-
-
 	</div>
 	<br>
 	<br>
@@ -170,22 +167,16 @@
 				"fontSize", "image", "imageManager", "inlineStyle",
 				"lineBreaker", "fileUpload", "lists", "paragraphFormat",
 				"paragraphStyle", "quote", "save", "url", "wordPaste" ],
-				  events: {
-				      'image.removed': function ($img) {
-				        var xhttp = new XMLHttpRequest();
-				        xhttp.onreadystatechange = function() {
-
-				          // Image was removed.
-				          if (this.readyState == 4 && this.status == 200) {
-				             console.log ('image was deleted');
-				          }
-				        };
-				        xhttp.open("POST", "/editor/image_delete", true);
+		events: {
+				 'image.removed': function ($img) {
+					 var xhttp = new XMLHttpRequest();
+				        xhttp.open("DELETE", "/editor/image_delete", true);
 				        xhttp.send(JSON.stringify({
 				          src: $img.attr('src')
 				        }));
 				      }
-				    }
+				 
+		}
 	})
 </script>
 

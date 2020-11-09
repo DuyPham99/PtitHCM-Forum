@@ -16,10 +16,15 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,11 +35,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 
 @RestController
 @RequestMapping("editor")
 public class RichTextEditorRestController {
-
+	
 	@PostMapping("upload_image")
 	@ResponseBody
 	Map<String, String> saveImage(@RequestParam("image") MultipartFile multiPart, @ModelAttribute("listImage") ArrayList<String> listImage) throws IllegalStateException, IOException, InterruptedException{
@@ -49,24 +56,27 @@ public class RichTextEditorRestController {
 	
 		// process
 		Path path = Paths.get(uploadDir);
-		Files.write(path, bytes);
+		Files.write(path, bytes); 
 		listImage.add(fileName);
 		map.put("link", "images/" + timestamp + " " + fileName);	
-		
-		TimeUnit.SECONDS.sleep(3);
+		// wait for refresh image folder
+		while(true) { 
+			try {
+			File file = new ClassPathResource("static/images/" + timestamp + " " + fileName).getFile();
+			if (file.exists()) break;
+			} catch(Exception e) {
+				
+			}
+		}
 		return map;
 	}
-	
-	@PostMapping( "image_delete")
-	ResponseEntity<String> delete(@RequestBody JsonObject  path) throws IOException {
-		String fileName = path.get("src").getAsString();
-		 FileUtils.touch(new File("src/test/resources/fileToDelete_commonsIo.txt"));
-		 File fileToDelete = FileUtils.getFile("src/test/resources/fileToDelete_commonsIo.txt");
-		    boolean success = FileUtils.deleteQuietly(fileToDelete);
-		System.out.println(fileName);
-		System.out.println(success);
-		return new ResponseEntity<>(HttpStatus.OK);
+	@DeleteMapping("image_delete")
+	void delete(@RequestBody String src) throws IOException {
+		JsonObject json = new JsonParser().parse(src).getAsJsonObject();
+		Path path = Paths.get("src/main/resources/static/" + json.get("src").getAsString());
+		Files.delete(path);
 	}
+
 	
 	
 }
