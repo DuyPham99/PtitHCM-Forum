@@ -25,12 +25,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,8 +42,7 @@ import com.google.gson.JsonParser;
 
 @RestController
 @RequestMapping("editor")
-public class RichTextEditorRestController {
-	
+public class RichTextEditorRestController {	
 	@PostMapping("upload_image")
 	@ResponseBody
 	Map<String, String> saveImage(@RequestParam("image") MultipartFile multiPart, @ModelAttribute("listImage") ArrayList<String> listImage) throws IllegalStateException, IOException, InterruptedException{
@@ -76,7 +77,13 @@ public class RichTextEditorRestController {
 		Path path = Paths.get("src/main/resources/static/" + json.get("src").getAsString());
 		Files.delete(path);
 	}
-
 	
+	@PostMapping("save")
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	String save(@RequestBody String text) {
+		System.out.println(text);	
+		return text;
+	}	
 	
 }

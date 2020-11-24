@@ -17,10 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "profile")
 public class Profile {
 	@Id
-//	@OneToOne
-//	@JoinColumn(name = "username")
 	String username;
-
 	String avatar;
 	String name;
 
@@ -35,13 +32,18 @@ public class Profile {
 	String phoneNumber;
 
 	String address;
+	
+	@OneToOne
+	@JoinColumn(name = "username")
+	User user;
 
 	public Profile() {
 		super();
 	}
 
+	
 	public Profile(String username, String avatar, String name, Date birthday, Boolean gender, String idCard,
-			String phoneNumber, String address) {
+			String phoneNumber, String address, User user) {
 		super();
 		this.username = username;
 		this.avatar = avatar;
@@ -51,7 +53,9 @@ public class Profile {
 		this.idCard = idCard;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
+		this.user = user;
 	}
+
 
 	@Override
 	public String toString() {
@@ -124,4 +128,15 @@ public class Profile {
 		this.address = address;
 	}
 
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	
 }

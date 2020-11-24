@@ -2,6 +2,8 @@ package com.forum.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -12,18 +14,21 @@ public class User {
 	String email;
 	String password;
 	
+	@OneToOne
+	@JoinColumn(name = "username")
+	Profile profile;
+	
 	public User() {
 		super();
 	}
-
-	public User(String username, String email, String password) {
+	
+	public User(String username, String email, String password, Profile profile) {
 		super();
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.profile = profile;
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -65,6 +70,16 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public Profile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(Profile profile) {
+		this.profile = profile;
+	}
+	
+	
 	
 	
 }

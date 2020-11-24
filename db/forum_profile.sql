@@ -32,7 +32,7 @@ CREATE TABLE `profile` (
   `phone_number` varchar(10) DEFAULT NULL,
   `address` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8/utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

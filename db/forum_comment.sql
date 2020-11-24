@@ -3,7 +3,7 @@
 -- Host: localhost    Database: forum
 -- ------------------------------------------------------
 -- Server version	8.0.22-0ubuntu0.20.04.2
-
+use forum;
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -34,7 +34,7 @@ CREATE TABLE `comment` (
   KEY `fk_comment_2_idx` (`id_post`),
   CONSTRAINT `fk_comment_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`),
   CONSTRAINT `fk_comment_2` FOREIGN KEY (`id_post`) REFERENCES `post` (`id_post`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

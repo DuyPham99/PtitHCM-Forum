@@ -143,7 +143,7 @@
 
 
 		<div id="froala-editor">
-			<form action="save" method="POST">
+			<form action="save" method="POST" id="form-content-editor">
 				<textarea name="editor" id="editor" cols="30" rows="10"></textarea>
 				<button id="saveButton" class="btn btn-primary mt-1">Đăng
 					bài</button>
@@ -167,17 +167,59 @@
 				"fontSize", "image", "imageManager", "inlineStyle",
 				"lineBreaker", "fileUpload", "lists", "paragraphFormat",
 				"paragraphStyle", "quote", "save", "url", "wordPaste" ],
-		events: {
-				 'image.removed': function ($img) {
-					 var xhttp = new XMLHttpRequest();
-				        xhttp.open("DELETE", "/editor/image_delete", true);
-				        xhttp.send(JSON.stringify({
-				          src: $img.attr('src')
-				        }));
-				      }
-				 
+		events : {
+			'image.removed' : function($img) {
+				var xhttp = new XMLHttpRequest();
+				xhttp.open("DELETE", "/editor/image_delete", true);
+				xhttp.send(JSON.stringify({
+					src : $img.attr('src')
+				}));
+			}
+
 		}
 	})
+</script>
+
+<script>
+	$(document).ready(function() {
+
+		$("#saveButton").click(function(event) {
+
+			// Stop default form Submit.
+			event.preventDefault();
+
+			// Call Ajax Submit.
+
+			ajaxSubmitForm();
+
+		});
+
+	});
+
+	function ajaxSubmitForm() {
+		// Get form
+		// var form = $('#form-content-editor')[0];
+		var data = $('textarea').val();
+		$("#saveButton").prop("disabled", true);
+		$.ajax({
+			type : "POST",
+			dataType : 'html',
+			url : "/editor/save",
+			data : data,
+
+			// prevent jQuery from automatically transforming the data into a query string
+			processData : false,
+			contentType : false,
+			cache : false,
+			timeout : 1000000,
+			success : function(response) {
+				alert("Success");
+			},
+			error : function(errorThrown) {
+				alert("Fail");
+			}
+		});
+	}
 </script>
 
 
