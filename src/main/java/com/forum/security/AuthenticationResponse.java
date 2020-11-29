@@ -1,4 +1,4 @@
-package com.forum.entity;
+package com.forum.security;
 
 import java.io.Serializable;
 

@@ -13,29 +13,28 @@ public class UserService {
 	@Autowired
 	UserRepository user;
 	
-	Iterable<User> findAll(){
+	public Iterable<User> findAll(){
 		return user.findAll();
 	}
 
-	User findById(String id) {
+	public User findById(String id) {
 		return user.findById(id).get();
 	}
 
-	void delete(User userDelete) {
+	public void delete(User userDelete) {
 		user.delete(userDelete);
 	}
 	
-	void deleteById(String id) {
+	public void deleteById(String id) {
 		user.deleteById(id);
 	}
 	
-	void save(User userSave) {
+	public void save(User userSave) {
 		user.save(userSave);
 	}
 	
-	void saveAll(Iterable<User> users) {
+	public void saveAll(Iterable<User> users) {
 		user.saveAll(users); 
 	}
 	
-
 }

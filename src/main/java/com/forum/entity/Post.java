@@ -1,11 +1,14 @@
 package com.forum.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -27,9 +30,12 @@ public class Post {
 	@Column(name = "date")
 	Date timeCreate;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "username")
 	User user;
+	
+	@OneToMany(mappedBy = "post")
+	List<Comment> comments;
 
 	public Post() {
 		super();

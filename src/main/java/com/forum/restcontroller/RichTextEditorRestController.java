@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.forum.security.MyUserDetailsService;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -43,15 +44,19 @@ import com.google.gson.JsonParser;
 @RestController
 @RequestMapping("editor")
 public class RichTextEditorRestController {	
+	
+	@Autowired
+	MyUserDetailsService userSV;
+	
 	@PostMapping("upload_image")
 	@ResponseBody
-	Map<String, String> saveImage(@RequestParam("image") MultipartFile multiPart, @ModelAttribute("listImage") ArrayList<String> listImage) throws IllegalStateException, IOException, InterruptedException{
+	Map<String, String> uploadImage(@RequestParam("image") MultipartFile multiPart, @ModelAttribute("listImage") ArrayList<String> listImage) throws IllegalStateException, IOException, InterruptedException{
 		Map<String,String> map = new HashMap<String, String>();
 		String fileName = StringUtils.cleanPath(multiPart.getOriginalFilename());	
 		LocalDateTime myDateObj = LocalDateTime.now();
 		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH-mm-ss");
-		String timestamp =  myDateObj.format(myFormatObj);
-		 
+		String timestamp =  myDateObj.format(myFormatObj);		
+		
 		String uploadDir = "src/main/resources/static/images/"  + timestamp + " " + fileName;
 		byte[] bytes = multiPart.getBytes();
 	
@@ -65,8 +70,7 @@ public class RichTextEditorRestController {
 			try {
 			File file = new ClassPathResource("static/images/" + timestamp + " " + fileName).getFile();
 			if (file.exists()) break;
-			} catch(Exception e) {
-				
+			} catch(Exception e) {			
 			}
 		}
 		return map;
@@ -77,7 +81,6 @@ public class RichTextEditorRestController {
 		Path path = Paths.get("src/main/resources/static/" + json.get("src").getAsString());
 		Files.delete(path);
 	}
-	
 	@PostMapping("save")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
@@ -85,5 +88,7 @@ public class RichTextEditorRestController {
 		System.out.println(text);	
 		return text;
 	}	
+	
+	
 	
 }

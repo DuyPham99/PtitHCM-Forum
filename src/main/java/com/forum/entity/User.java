@@ -1,8 +1,12 @@
 package com.forum.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -13,11 +17,18 @@ public class User {
 	String username;
 	String email;
 	String password;
+	String role;
 	
 	@OneToOne
 	@JoinColumn(name = "username")
 	Profile profile;
 	
+	@OneToMany(mappedBy = "user")
+	List<Post> posts;
+	
+	@OneToMany(mappedBy = "user")
+	List<Comment> comments;
+		
 	public User() {
 		super();
 	}
@@ -78,8 +89,31 @@ public class User {
 	public void setProfile(Profile profile) {
 		this.profile = profile;
 	}
-	
-	
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
 	
 	
 }

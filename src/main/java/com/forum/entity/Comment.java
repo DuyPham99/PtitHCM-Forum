@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -27,10 +28,11 @@ public class Comment {
 	@Column(name = "date")
 	Date dateCreate;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "username")
 	User user;
-	@OneToOne
+	
+	@ManyToOne
 	@JoinColumn(name = "id_post")
 	Post post;
 
@@ -101,5 +103,7 @@ public class Comment {
 	public void setPost(Post post) {
 		this.post = post;
 	}
+	
+	
 
 }
