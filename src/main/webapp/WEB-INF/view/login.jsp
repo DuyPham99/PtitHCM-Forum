@@ -23,12 +23,12 @@
     <form>
       <input type="text" name="username" placeholder="Tên đăng nhập">
       <br>
-      <input type="text" name="password" placeholder="Mật khẩu" class="mt-3">
+      <input type="password" name="password" placeholder="Mật khẩu" class="mt-3">
       <p style="font-size: 12px; margin-bottom: 0px; margin-top: 3px; margin-bottom: 3px; /* color: ; */"><a
           href="#">Quên mật khẩu?</a></a></p>
       <input name="" id="btnSubmit" class="btn btn-primary btn-block" style="margin-top: 0px;margin-bottom: 10px;"
         type="submit" value="Đăng nhập">
-      <p style="font-size: 12px; display:block;">Chưa có tài khoản? <a href="#">Đăng ký</a></p>
+      <p style="font-size: 12px; display:block;">Chưa có tài khoản? <a href="/register">Đăng ký</a></p>
     </form>
   </div>
 

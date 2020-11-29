@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,17 +15,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <link href="../css/style.css" rel="stylesheet">
+    <link href="resources/css/style.css" rel="stylesheet">
 </head>
 <body>
   <div class="container register-form">
-      <a href="#"><img src="../resource/pictures/ptitLogo.jpg" style="margin-bottom: 10px;margin-left: 80px;width:80px;height:80px"></a>
-      <form action="#">
+      <a href="#"><img src="images/ptitLogo.jpg" style="margin-bottom: 10px;margin-left: 80px;width:80px;height:80px"></a>
+      <form>
+        <div>Tên đăng nhập: </div>
+        <input type="text" placeholder="">
         <div>Nhập email: </div>
         <input type="email" placeholder="email@example.com">
         <p style="font-size: 12px; margin-bottom: 0px;">Bạn sẽ nhận được email đăng ký tài khoản!</p>
+        <div>Mật khẩu: </div>
+        <input type="password" placeholder="">
+        <div>Nhập lại khẩu: </div>
+        <input type="password" placeholder="">
+        <br>
         <input name="" id="" class="btn btn-primary" style="margin-top: 10px;margin-bottom: 10px;" type="submit" value="Gửi">
-        <p style="font-size: 12px; display:block;">Đã có tài khoản? <a href="#">Đăng nhập</a></p>  
+        <p style="font-size: 12px; display:block;">Đã có tài khoản? <a href="/login">Đăng nhập</a></p>  
       </form>
       </div>
 </body>
