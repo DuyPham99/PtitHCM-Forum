@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,8 +19,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "comment")
 public class Comment {
 	@Id
+	@NotNull
 	@Column(name = "id_comment")
 	String idComment;
+	@NotNull
 	String content;
 	String reply;
 

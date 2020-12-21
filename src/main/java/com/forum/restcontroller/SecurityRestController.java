@@ -35,20 +35,22 @@ public class SecurityRestController {
 	private com.forum.security.MyUserDetailsService userDetailsService;	
 		
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletRequest request, ModelMap model) throws Exception {
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletRequest request, ModelMap model) throws Exception {		
 		try {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
 			);
+			System.out.println("hello");
 		}
 		catch (BadCredentialsException e) {
 			throw new Exception("Incorrect username or password", e);
 		}
+
 		// check user/pass from DB
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getUsername());
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
-		//new com.forum.security.AuthenticationResponse(jwt)
+		
 		request.getSession().setAttribute("username", userDetails.getUsername());
 		return  ResponseEntity.ok(new com.forum.security.AuthenticationResponse(jwt));
 	}

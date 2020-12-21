@@ -51,7 +51,7 @@ function getCookie(name) {
   $("#btnSubmit").click(function (event) {
     var username = $("input[name=username]").val();
     var password = $("input[name=password]").val();
-    var data = { 'username': username, 'password': password };
+    var data = {'username': username, 'password': password};
     event.preventDefault();
     if (username != "" && password != "") {
       $.ajax({
@@ -87,7 +87,7 @@ function getCookie(name) {
   //         alert("error");
   //       }
   //     });   
-  })  
+  // })  
 
   
 </script>

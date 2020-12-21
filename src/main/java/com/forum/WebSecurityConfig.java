@@ -51,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/update/**").hasAnyAuthority("ADMIN", "USER")
 				.antMatchers("/create/**").hasAnyAuthority("ADMIN", "USER")
 				.antMatchers("/delete/**").hasAnyAuthority("ADMIN", "USER")		
-				.antMatchers("/**", "/*.jsp", "/*.html").permitAll()
+				.antMatchers("/**", "/*.jsp", "/*.html", "/login").permitAll()
 				.anyRequest()
 				.authenticated().and().exceptionHandling().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

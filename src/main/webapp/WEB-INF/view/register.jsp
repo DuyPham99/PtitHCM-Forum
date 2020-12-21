@@ -40,32 +40,32 @@
       </form>
     </div>
   </body>
-  
+
   <script>
     {
       $().ready(function () {
-      $("#register-form").validate({
-        onfocusout: false,
-        onkeyup: false,
-        onclick: false,
-        rules: {
-          "username": {
-            required: true,
-            maxlength: 15
+        $("#register-form").validate({
+          onfocusout: false,
+          onkeyup: false,
+          onclick: false,
+          rules: {
+            "username": {
+              required: true,
+              maxlength: 15
+            },
+            "password": {
+              required: true,
+              minlength: 8
+            },
+            "email": {
+              required: true,
+              email: true
+            },
+            "retype": {
+              equalTo: "#password",
+              minlength: 8
+            }
           },
-          "password": {
-            required: true,
-            minlength: 8
-          },
-          "email": {
-            required: true,
-            email: true
-          },
-          "retype": {
-            equalTo: "#password",
-            minlength: 8
-          }
-        },
           messages: {
             "username": {
               required: "Bắt buộc nhập username",
@@ -84,8 +84,8 @@
               minlength: "Hãy nhập ít nhất 8 ký tự"
             }
           }
+        });
       });
-    });
     }
   </script>
 
@@ -94,9 +94,9 @@
       //get data from form
       var data = {};
       event.preventDefault();
-      var formStatus = $("#register-form").validate().form();
-      if (formStatus != 1) return;
-      $("#register-form").serializeArray().map(function(x){data[x.name] = x.value;}); 
+      // var formStatus = $("#register-form").validate().form();
+      // if (formStatus != 1) return;
+      $("#register-form").serializeArray().map(function (x) { data[x.name] = x.value; });
       if (username != "" && password != "") {
         $.ajax({
           contentType: "application/json; charset=utf-8",
@@ -108,10 +108,15 @@
             window.location.href = "/login";
           },
           error: function (xhr, ajaxOptions, error) {
-            if (xhr.responseText === 'User was existed!'){
+            if (xhr.responseText === 'User was existed!') {
               alert("Tên đăng nhập đã tồn tại!");
-            } else if (xhr.responseText === 'User was existed!'){
+            } else if (xhr.responseText === 'User was existed!') {
               alert("Email đã tồn tại!");
+            }
+
+            var log = JSON.parse(xhr.responseText)
+            for (i in log.errors) {
+              alert(log.errors[i]);
             }
           }
         });

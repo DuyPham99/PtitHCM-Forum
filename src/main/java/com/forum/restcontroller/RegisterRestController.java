@@ -26,6 +26,7 @@ public class RegisterRestController {
 		} else if (userService.isValidAccount(user) == 2) {
 			return new ResponseEntity<>("User was existed!", HttpStatus.BAD_REQUEST);
 		}
+		user.setRole("USER");
 		user.setPassword(userService.encrypPassword(user.getPassword()));
 		userService.save(user);	
 		return ResponseEntity.ok("");

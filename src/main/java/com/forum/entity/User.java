@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -22,8 +24,8 @@ import javax.validation.constraints.Size;
 public class User {
 	@Id
 	@NotNull(message = "Username không bỏ trống!")
-	@NotBlank(message = "Username không khoảng trắng")
-	@Size(min = 2, max = 20)
+	@NotBlank(message = "Username không chứa khoảng trắng")
+	@Size(min = 2, max = 20, message = "Độ dài Username từ 2 đến 20 ký tự!")
 	String username;
 	
 	@Email(message = "Email không hợp lệ!")
@@ -32,7 +34,8 @@ public class User {
 	
 	@NotNull
 	String password;
-		
+	
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	String role;
 	
 	@OneToOne(cascade = CascadeType.ALL)
