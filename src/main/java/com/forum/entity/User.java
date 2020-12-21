@@ -9,17 +9,33 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 
 @Entity
 @Table(name = "user")
 public class User {
 	@Id
+	@NotNull(message = "Username không bỏ trống!")
+	@NotBlank(message = "Username không khoảng trắng")
+	@Size(min = 2, max = 20)
 	String username;
+	
+	@Email(message = "Email không hợp lệ!")
+	@NotNull
 	String email;
+	
+	@NotNull
 	String password;
+		
 	String role;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "username")
 	Profile profile;
 	
@@ -33,12 +49,12 @@ public class User {
 		super();
 	}
 	
-	public User(String username, String email, String password, Profile profile) {
+	public User(String username, String email, String password, String role) {
 		super();
 		this.username = username;
 		this.email = email;
 		this.password = password;
-		this.profile = profile;
+		this.role = role;
 	}
 
 	@Override
@@ -46,37 +62,25 @@ public class User {
 		return "User [username=" + username + ", email=" + email + ", password=" + password + "]";
 	}
 
-
-
 	public String getUsername() {
 		return username;
 	}
-
-
 
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
-
-
 	public String getEmail() {
 		return email;
 	}
-
-
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
-
 	public String getPassword() {
 		return password;
 	}
-
-
 
 	public void setPassword(String password) {
 		this.password = password;
@@ -113,7 +117,4 @@ public class User {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
-
-	
-	
 }

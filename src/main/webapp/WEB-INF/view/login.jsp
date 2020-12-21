@@ -19,7 +19,7 @@
 
 <body>
   <div class="container register-form">
-    <a href="#"><img src="images/ptitLogo.jpg" style="margin-bottom: 10px;margin-left: 80px;width:80px;height:80px"></a>
+    <a href="/"><img src="images/ptitLogo.jpg" style="margin-bottom: 10px;margin-left: 80px;width:80px;height:80px"></a>
     <form>
       <input type="text" name="username" placeholder="Tên đăng nhập">
       <br>
@@ -31,7 +31,6 @@
       <p style="font-size: 12px; display:block;">Chưa có tài khoản? <a href="/register">Đăng ký</a></p>
     </form>
   </div>
-
 </body>
 
 <script>
@@ -61,36 +60,36 @@ function getCookie(name) {
         type: 'POST',
         dataType: 'json',
         data: JSON.stringify(data),
-        success: function (data, response) {
-          alert(data.jwt);   
+        success: function (data, response) { 
           document.cookie = "Authorization=Bearer " + data.jwt + "; " ;
-          console.log(getCookie("Authorization"));
+          window.location.href = "/";
         },
         error: function (xhr, ajaxOptions, thrownError) {
-          alert(xhr.status);
-          alert(thrownError);
+          window.location.reload();       
         }
       });
     }
   })  
 
-  $("#temp").click(function (event) {  
-    event.preventDefault();
-      $.ajax({
-        contentType: "application/json; charset=utf-8",
-        url: '/create/hello',
-        headers: {"Authorization" : getCookie("Authorization")},
-        type: 'GET',
-        dataType: 'json',
-        data: JSON.stringify("test"),
-        success: function (data, response) {
-          alert("success");
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-          alert("error");
-        }
-      });   
+  // $("#temp").click(function (event) {  
+  //   event.preventDefault();
+  //     $.ajax({
+  //       contentType: "application/json; charset=utf-8",
+  //       url: '/create/hello',
+  //       headers: {"Authorization" : getCookie("Authorization")},
+  //       type: 'GET',
+  //       dataType: 'json',
+  //       data: JSON.stringify("test"),
+  //       success: function (data, response) {
+  //         alert("success");
+  //       },
+  //       error: function (xhr, ajaxOptions, thrownError) {
+  //         alert("error");
+  //       }
+  //     });   
   })  
+
+  
 </script>
 
 

@@ -10,13 +10,17 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.CascadeType;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.NonNull;
 
 @Entity
 @Table(name = "profile")
 public class Profile {
 	@Id
+	@NotNull
 	String username;
 	String avatar;
 	String name;
@@ -35,6 +39,7 @@ public class Profile {
 	
 	@OneToOne
 	@JoinColumn(name = "username")
+	@NotNull
 	User user;
 
 	public Profile() {

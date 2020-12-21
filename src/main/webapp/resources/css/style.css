@@ -268,7 +268,48 @@ input:focus {
 {
     cursor: pointer;
 }
+
 .profile{
   font-size: 15px;
   height: 480px;
 }
+
+.dropdown{
+  outline: none;
+  border: none;
+  background-color: #fff;
+  margin-top: 20px;
+}
+
+.write{
+  background: #2FB5FA;
+  border-color: #2FB5FA;
+  
+  border-radius: 12px;
+}
+
+.write:hover{
+  background: #2FB5FA;
+  border-color: #2FB5FA;
+}
+
+.dropdown:focus{
+  outline: none;
+}
+
+#email-error{
+  margin-left:  10px;
+}	
+
+#username-error{
+  margin-left:  10px;
+}
+
+#password-error{
+  margin-left:  10px;
+}
+
+label.error {
+  color: red;
+}
+

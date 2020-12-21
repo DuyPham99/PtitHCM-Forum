@@ -75,6 +75,7 @@ public class RichTextEditorRestController {
 		}
 		return map;
 	}
+	
 	@DeleteMapping("image_delete")
 	void delete(@RequestBody String src) throws IOException {
 		JsonObject json = new JsonParser().parse(src).getAsJsonObject();

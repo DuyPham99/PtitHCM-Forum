@@ -83,8 +83,8 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.6</version>
 		</dependency>
-	<!-- Security -->
-	<dependency>
+		<!-- Security -->
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
@@ -97,6 +97,12 @@
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.0.13.Final</version>
 		</dependency>
 	</dependencies>
 

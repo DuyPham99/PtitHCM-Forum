@@ -13,6 +13,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,12 +24,16 @@ public class Post {
 
 	@Id
 	@Column(name = "id_post")
+	@NotNull(message = "Không được bỏ trống!")
 	String idPost;
+	@NotNull(message = "Không được bỏ trống!")
+	@Size(min = 50, max = 500, message = "Ít nhất 50 ký tự, nhiều nhất 500 ký tự!")
 	String content;
 	int react;
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy hh:MM:ss")
 	@Column(name = "date")
+	@NotNull
 	Date timeCreate;
 
 	@ManyToOne
