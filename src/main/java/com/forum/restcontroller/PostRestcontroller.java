@@ -3,6 +3,8 @@ package com.forum.restcontroller;
 import java.awt.desktop.ScreenSleepEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpHeaders;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,6 +17,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -23,6 +28,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,17 +42,32 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.forum.entity.Category;
+import com.forum.entity.Post;
+import com.forum.entity.User;
+import com.forum.respository.PostRepository;
 import com.forum.security.MyUserDetailsService;
+import com.forum.service.PostService;
+import com.forum.service.UserService;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 
 @RestController
-@RequestMapping("editor")
-public class RichTextEditorRestController {	
+@RequestMapping("create")
+public class PostRestcontroller {	
 	
 	@Autowired
 	MyUserDetailsService userSV;
+	
+	@Autowired
+	PostService postService;
+	
+	@Autowired
+	PostRepository postRespository;
+	
+	@Autowired
+	UserService userService;
 	
 	@PostMapping("upload_image")
 	@ResponseBody
@@ -85,9 +106,14 @@ public class RichTextEditorRestController {
 	@PostMapping("save")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	String save(@RequestBody String text) {
-		System.out.println(text);	
-		return text;
+	String save(@Valid @RequestBody Post post, HttpServletRequest request,ModelMap model) {	
+		// save
+		post.setUser(userService.findById((String) request.getSession().getAttribute("username")));
+		post.setReact(0);	
+		postService.save(post);
+		org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
+		headers.setLocation(URI.create("/pageContent/" + postRespository.getLastPostOfUser(post.getUser().getUsername()).getIdPost()));
+		return "/pageContent/" + postRespository.getLastPostOfUser(post.getUser().getUsername()).getIdPost();
 	}	
 	
 	

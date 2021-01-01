@@ -94,8 +94,8 @@
       //get data from form
       var data = {};
       event.preventDefault();
-      // var formStatus = $("#register-form").validate().form();
-      // if (formStatus != 1) return;
+      var formStatus = $("#register-form").validate().form();
+      if (formStatus != 1) return;
       $("#register-form").serializeArray().map(function (x) { data[x.name] = x.value; });
       if (username != "" && password != "") {
         $.ajax({

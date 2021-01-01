@@ -47,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf().disable().authorizeRequests()				
+		httpSecurity.csrf().disable().authorizeRequests()			
 				.antMatchers("/update/**").hasAnyAuthority("ADMIN", "USER")
 				.antMatchers("/create/**").hasAnyAuthority("ADMIN", "USER")
 				.antMatchers("/delete/**").hasAnyAuthority("ADMIN", "USER")		
@@ -56,7 +56,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authenticated().and().exceptionHandling().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
+		httpSecurity.logout()
+		.logoutSuccessUrl("/login")
+		.logoutUrl("/logout");
 	}
 
 }

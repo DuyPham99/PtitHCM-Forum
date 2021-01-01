@@ -101,8 +101,8 @@ a:active {
   color: rgb(148, 146, 146);
 }
 
-.title a{
-  font-size: 18px;
+.title {
+  font-size: 24px;
   font-weight: bold;
   color: black;
 }
@@ -313,3 +313,8 @@ label.error {
   color: red;
 }
 
+.fr-box.fr-basic .fr-element.fr-view {
+  font-family: "Times New Roman", Georgia, Serif;
+  font-size: 18px;
+  color: #444444;
+}
