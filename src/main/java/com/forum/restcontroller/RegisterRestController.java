@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.forum.entity.Profile;
 import com.forum.entity.User;
+import com.forum.service.ProfileService;
 import com.forum.service.UserService;
 
 @RestController
@@ -19,8 +21,13 @@ public class RegisterRestController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	ProfileService profileService;
+	
 	@PostMapping("/register")
 	public ResponseEntity<?> Register(@Valid @RequestBody User user) {
+		Profile profile = new Profile();
+		
 		if (userService.isValidAccount(user) == 1) {
 			return new ResponseEntity<>("User was existed!", HttpStatus.BAD_REQUEST);
 		} else if (userService.isValidAccount(user) == 2) {
@@ -28,7 +35,11 @@ public class RegisterRestController {
 		}
 		user.setRole("USER");
 		user.setPassword(userService.encrypPassword(user.getPassword()));
+		
+		profile.setUsername(user.getUsername());
+		
 		userService.save(user);	
+		profileService.save(profile);
 		return ResponseEntity.ok("");
 	}
 }

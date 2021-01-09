@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body{
   font-family: 'NotoSans-Regular,"Helvetica Neue",Helvetica,Arial,sans-serif;';
   color: #000000 !important;
@@ -155,7 +159,7 @@ img{
 }
 .background {
   /* The image used */
-  background-image: url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max");
+  /* background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max'); */
 
   /* Half height */
   height: 400px;
@@ -317,4 +321,25 @@ label.error {
   font-family: "Times New Roman", Georgia, Serif;
   font-size: 18px;
   color: #444444;
+}
+
+.media{
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.show-large{
+  display: block;
+  width: 500px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.show-small{
+  display: block;
+  width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

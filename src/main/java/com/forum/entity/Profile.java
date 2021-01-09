@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -21,7 +22,6 @@ import org.springframework.lang.NonNull;
 @Table(name = "profile")
 public class Profile {
 	@Id
-	@NotNull
 	String username;
 	String avatar;
 	String name;
@@ -29,19 +29,25 @@ public class Profile {
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Past
+	@NotNull(message = "Nhập ngày sinh!")
 	Date birthday;
+	
+	@NotNull(message = "Nhập giới tính!")
 	Boolean gender;
+	
+	@NotNull(message = "Nhập CMND!")
 	@Column(name = "identity_card")
 	String idCard;
 
+	@NotNull(message = "Nhập SĐT!")
 	@Column(name = "phone_number")
 	String phoneNumber;
 
+	@NotNull(message = "Nhập địa chỉ!")
 	String address;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "username")
-	@NotNull
 	User user;
 
 	public Profile() {

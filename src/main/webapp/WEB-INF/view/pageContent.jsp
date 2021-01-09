@@ -2,8 +2,9 @@
     <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
         <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
             <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+            <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                 <!DOCTYPE html>
-                <html lang="en">
+                <html lang="en" id="top">
 
                 <head>
                     <meta charset="utf-8">
@@ -32,7 +33,14 @@
                     <script src="http://localhost:8000/resources/js/utils.js"></script>
                     <script
                         src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-                    <base href="${pageContext.servletContext.contextPath}/">
+
+                    <!--Start: Initial Websocket-->
+                    <title>Chat WebSocket</title>
+                    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+                    <!--End: Initial Websocket-->
+                    
+                    <base href="http://localhost:8000/" />
                 </head>
 
                 <body style="background: #f2f2f2;">
@@ -41,7 +49,7 @@
                         <div class="container-fluid bg-white">
                             <div class="row text-center border-bottom">
                                 <div class="col text-right">
-                                    <a href="#"><img src="http://localhost:8000/images/ptitLogo.jpg" height="70"
+                                    <a href="/"><img src="http://localhost:8000/images/ptitLogo.jpg" height="70"
                                             class="logo" width="270" style="width: 30%;"></a>
                                 </div>
 
@@ -72,20 +80,17 @@
                     <nav class="navbar navbar-expand-sm navbar-dark sticky-top bg-white header p-auto">
                         <div class="container">
                             <ul class="nav col-md-12 nav-bar text-header" style="color: black;">
-                                <li class="nav-item "><a class="nav-link py-0" href="#">Trang
-                                        chủ</a></li>
-                                <li class="nav-item"><a class="nav-link py-0" href="#">Hoạt
-                                        động</a></li>
-                                <li class="nav-item"><a class="nav-link py-0" href="#">Học
-                                        tập</a></li>
-                                <li class="nav-item"><a class="nav-link py-0" href="#">Đội
-                                        - Nhóm</a></li>
-                                <li class="nav-item"><a class="nav-link py-0" href="#">Chuyện
-                                        trò - tâm sự</a></li>
-                                <li class="nav-item"><a class="nav-link py-0" href="#">Chia
-                                        sẻ kinh nghiệm</a></li>
-                                <li class="nav-item"><a class="nav-link py-0" href="#">Truyện
-                                        cười</a></li>
+                                <li class="nav-item"><a class="nav-link py-0" href="/topic/1/1">Hoạt
+									động</a></li>
+							<li class="nav-item"><a class="nav-link py-0" href="/topic/2/1">Học
+									tập</a></li>
+							<li class="nav-item"><a class="nav-link py-0" href="/topic/3/1">Đội
+									- Nhóm</a></li>
+							<li class="nav-item"><a class="nav-link py-0" href="/topic/4/1">Chuyện
+									trò - tâm sự</a></li>
+							<li class="nav-item"><a class="nav-link py-0" href="/topic/5/1">Chia
+									sẻ kinh nghiệm</a></li>
+							<li class="nav-item"><a class="nav-link py-0" href="/topic/6/1">Khác</a></li>
                             </ul>
                         </div>
                         </div>
@@ -145,21 +150,15 @@
                                     <!--navigation-->
                                     <ul class="nav flex-column nav-pills" style="float: right;">
                                         <li class="nav-item">
-                                            <a class="nav-link disabled" href="#"><i class="fa fa-comments"
+                                            <a class="nav-link disabled" href="#comment"><i class="fa fa-comments"
                                                     style="margin-right: 2px;"></i></a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link disabled" href="#"><i class="fas fa-heart"
-                                                    style="margin-right: 4px;">
-                                                </i></a>
-                                        </li>
-
                                         <li class="nav-item ">
-                                            <a class="nav-link active" href="#"><i class="fas fa-angle-double-up"
+                                            <a class="nav-link disabled" href="#top"><i class="fas fa-angle-double-up"
                                                     style="margin-right: 6px;"> </i></a>
                                         </li>
                                         <li class="nav-item ">
-                                            <a class="nav-link disabled" href="#"><i class="fas fa-angle-double-down"
+                                            <a class="nav-link disabled" href="#end"><i class="fas fa-angle-double-down"
                                                     style="margin-right: 3px;"> </i></a>
                                         </li>
                                     </ul>
@@ -220,90 +219,60 @@
                                     </li>
                                 </ul>
                                 <!--End: new feed-->
-                                <!--Start: comment-->
-                                <ul class="nav flex-column mt-0">
+                            <!--Start: comment-->
+                                <ul class="nav flex-column mt-0" >
                                     <li class="nav-item">
-                                        <div class="container">
+                                        <div id="comment" class="container" >
                                             <div class="position-relative border new-feed"
                                                 style="height: 100%; padding-bottom: 60px;">
-                                                <p style="margin-bottom: 10px;"> Bình luận: </p>
-                                                <!--Start: Comment-->
-                                                <form class="form-inline">
+                                                <p style="margin-bottom: 10px;"> Bình luận: </p>                                              
+                                                <!--Start: CommentEditor-->
+                                                <form class="form-inline" id="commentForm">
                                                     <div class="form-group" style="padding-left: 5px;">
                                                         <label for=""></label>
-                                                        <input type="text" size="85%" name="" id="" class="form-control"
+                                                        <input type="text" size="85%" name="" id="content" class="form-control"
                                                             placeholder="" aria-describedby="helpId">
                                                         <i class="far fa-smile"
                                                             style="color:#ced4da;margin-left: 4px;margin-right: 4px;"></i>
-                                                        <button type="submit" class="btn btn-primary">Gửi</button>
+                                                        <input type="hidden" id="user" value=" ${sessionScope['username']}"/>
+                                                        <button type="submit" id="save" class="btn btn-primary">Gửi</button>
                                                     </div>
                                                 </form>
-                                                <!--End: Comment-->
+                                                <!--End: CommentEditor-->
 
-
+								<c:forEach var="comment" items="${post.comments}"> 
                                                 <!--Start: Nest MediaObject-->
                                                 <div class="container mt-3">
                                                     <hr>
                                                     <br>
+                                                    
+                                                    <!-- Start : Comment 1-->
                                                     <div class="media">
-                                                        <img src="img_avatar3.png" alt="John Doe"
+                                                        <img src="${comment.user.profile.avatar}" alt="John Doe"
                                                             class="mr-3 mt-3 rounded-circle" style="width:60px;">
                                                         <div class="media-body">
                                                             <a href="#" style="float: right;"><i
-                                                                    class="fa fa-reply"></i></a>
-                                                            <h4>John Doe <small><i>Posted on February 19,
-                                                                        2016</i></small>
+                                                                    class=""></i></a>                     
+                                                            <h4>${comment.user.username}<small style="font-size: 12px;"><i>   <fmt:formatDate type="both" dateStyle="short"
+                                                                timeStyle="short" value="${comment.dateCreate}" /></i></small>
                                                             </h4>
-                                                            <!-- Start : Comment 1-->
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                                                sed
-                                                                do eiusmod
-                                                                tempor incididunt ut labore et dolore magna aliqua.</p>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                                                sed
-                                                                do eiusmod
-                                                                tempor incididunt ut labore et dolore magna aliqua.</p>
-                                                            <!-- End : Comment 1-->
-                                                            <!-- Start : Comment 2-->
-                                                            <div class="media p-3">
-                                                                <img src="img_avatar2.png" alt="Nest"
-                                                                    class="mr-3 mt-3 rounded-circle"
-                                                                    style="width:45px;">
-                                                                <div class="media-body">
-
-                                                                    <h4>Jane Doe <small><i>Posted on February 20
-                                                                                2016</i></small></h4>
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur
-                                                                        adipiscing
-                                                                        elit, sed do
-                                                                        eiusmod tempor incididunt ut labore et dolore
-                                                                        magna
-                                                                        aliqua.</p>
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur
-                                                                        adipiscing
-                                                                        elit, sed do
-                                                                        eiusmod tempor incididunt ut labore et dolore
-                                                                        magna
-                                                                        aliqua.</p>
-                                                                </div>
-                                                            </div>
-                                                            <!-- End : Comment 2-->
+                                                            ${comment.content}        
+    
                                                         </div>
                                                     </div>
+                                                    <!-- End : Comment 1-->  
+
                                                 </div>
                                                 <!-- End: Nest MediaObject-->
-
+									</c:forEach>
                                             </div>
                                         </div>
                                     </li>
                                 </ul>
                                 <!--End: comment-->
                             </div>
-                            <div class="col-md-2">
-
-                            </div>
                         </div>
-                        <div class="container" style="font-size: 10px;">
+                        <div class="container" style="font-size: 10px;" id="end">
                             <hr>
                             <p>Học viện Công nghệ Bưu chính - TP.HCM</p>
                             <p>Địa chỉ 1: Quận 1</p>
@@ -317,5 +286,40 @@
                         x.classList.toggle("fa-heart-pink");
                     }
                 </script>
+                <script>
+                    $(document).ready(function () {
+                        $("#save").click(function (event) {
+                            event.preventDefault();
+                            if ($("#content").val == null || $("#content").val == "") return;
+                            ajaxSubmitForm();
+                        });
+                    });
+        
+                    function ajaxSubmitForm() {
+                        // Get form
+                        // var form = $('#form-content-editor')[0];
+                        //var data = { title: $("#title").val(), content: $('textarea').val(), category: $("#category").val() };
+                        var data = {content: $("#content").val()};                      
+                        console.log(data);
+                        $.ajax({
+                            contentType: "application/json; charset=utf-8",
+                            type: "POST",
+                            headers: { "Authorization": getCookie("Authorization") },
+                            url: "/create/comment/${post.idPost}",
+                            data: JSON.stringify(data),
+                            // prevent jQuery from automatically transforming the data into a query string
+                            success: function (response) {
+                                window.location.href = response;
+                            },
+                            error: function (xhr, ajaxOptions, error) {
+                                var log = JSON.parse(xhr.responseText)
+                                for (i in log.errors) {
+                                    alert(log.errors[i]);
+                                }
+                            }
+                        });
+                    }
+                </script>
+                
 
                 </html>

@@ -1,36 +1,77 @@
-<!DOCTYPE html>
 <html>
+    <head>
+      <!--Start: Initial Websocket-->
+        <title>Chat WebSocket</title>
+        <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+        <script type="text/javascript">
+            var stompClient = null;
+            
+            function setConnected(connected) {
+                document.getElementById('connect').disabled = connected;
+                document.getElementById('disconnect').disabled = !connected;
+                document.getElementById('conversationDiv').style.visibility 
+                  = connected ? 'visible' : 'hidden';
+                document.getElementById('response').innerHTML = '';
+            }
+            
+            function connect() {
+                var socket = new SockJS('/chat');
+                stompClient = Stomp.over(socket);  
+                stompClient.connect({}, function(frame) {
+                    setConnected(true);
+                    console.log('Connected: ' + frame);
+                    stompClient.subscribe('/topic/messages', function(messageOutput) {
+                        showMessageOutput(JSON.parse(messageOutput.body));
+                    });
+                });
+            }
+            
+            function disconnect() {
+                if(stompClient != null) {
+                    stompClient.disconnect();
+                }
+                setConnected(false);
+                console.log("Disconnected");
+            }
+            
+            function sendMessage() {
+                var from = document.getElementById('from').value;
+                var text = document.getElementById('text').value;
+                stompClient.send("/app/chat", {}, 
+                  JSON.stringify({'from':from, 'text':text}));
+            }
+            
+            function showMessageOutput(messageOutput) {
+                var response = document.getElementById('response');
+                var p = document.createElement('p');
+                p.style.wordWrap = 'break-word';
+                p.appendChild(document.createTextNode(messageOutput.from + ": " 
+                  + messageOutput.text + " (" + messageOutput.time + ")"));
+                response.appendChild(p);
+            }
+        </script>
+          <!--End: Initial Websocket-->
+    </head>
+    <body onload="disconnect()">
+        <div>
+            <div>
+                <input type="text" id="from" placeholder="Choose a nickname"/>
+            </div>
+            <br />
+            <div>
+                <button id="connect" onclick="connect();">Connect</button>
+                <button id="disconnect" disabled="disabled" onclick="disconnect();">
+                    Disconnect
+                </button>
+            </div>
+            <br />
+            <div id="conversationDiv">
+                <input type="text" id="text" placeholder="Write a message..."/>
+                <button id="sendMessage" onclick="sendMessage();">Send</button>
+                <p id="response"></p>
+            </div>
+        </div>
 
-<head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
- 
-</head>
-
-<body>
-  <form >
-    <input type="text" id="username" name="username" placeholder="Tên đăng nhập">
-    <br>
-    <input type="text" name="password" placeholder="Mật khẩu" class="mt-3">
-    <p style="font-size: 12px; margin-bottom: 0px; margin-top: 3px; margin-bottom: 3px; /* color: ; */"><a href="#">Quên mật khẩu?</a></a></p>
-    <button id="btnSubmit">click </button>
-    <p style="font-size: 12px; display:block;">Chưa có tài khoản? <a href="#">Đăng ký</a></p>  
-  </form>
-  <input name="" id="btnSubmit" class="btn btn-primary btn-block" style="margin-top: 0px;margin-bottom: 10px;" type="submit" value="Đăng nhập">
-</body>
-
-<script>
-  $('#btnSubmit').click(function (event) {
-    alert($('#username').val());
-    $.ajax({
-      url: "login",
-      type: "post",
-      contentType: 'application/json',
-      data:JSON.stringify( {'username' : $('#username').val(), 'password' :  $('#username').val()}),
-      success: function (data, response) {
-        alert(data.jwt);
-      }
-    });
-  });
-</script>
-
+    </body>
 </html>

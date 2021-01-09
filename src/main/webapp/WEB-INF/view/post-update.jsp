@@ -18,16 +18,17 @@
 
 			</script>
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-			<link href="resources/css/style.css" rel="stylesheet">
+			<link href="http://localhost:8000/resources/css/style.css" rel="stylesheet">
 			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
 				integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
 				crossorigin="anonymous">
 
-			<link href="resources/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
-			<script type="text/javascript" src="resources/froala-editor/js/froala_editor.pkgd.min.js"></script>
-			<link href="resources/froala-editor/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+			<link href="http://localhost:8000/resources/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+			<script type="text/javascript" src="http://localhost:8000/resources/froala-editor/js/froala_editor.pkgd.min.js"></script>
+			<link href="http://localhost:8000/resources/froala-editor/css/froala_style.min.css" rel="stylesheet" type="text/css" />
 			<script src="resources/js/utils.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+			<base href="http://localhost:8000/"/>
 		</head>
 
 		<body style="background: #f2f2f2;">
@@ -136,19 +137,19 @@
 				<div id="froala-editor">
 					<form action="/create/save" method="POST" id="form-content-editor">
 						<input id="title" name="title" type="text" size="106" style="border: none; outline: none;"
-							placeholder="Tiêu đề bài viết" value="${post.title}"/>
+							placeholder="Tiêu đề bài viết" value="${post.title}" />
 						<br><br>
 						<select id="category" name="category">
-							<option value="0">Chọn danh mục:</option>
-							<option value="1">Hoạt động</option>
-							<option value="2">Học tập</option>
-							<option value="3">Đội - Nhóm</option>
+							<option value="0" >Chọn danh mục:</option>
+							<option value="1" >Hoạt động</option>
+							<option value="2" >Học tập</option>
+							<option value="3" >Đội - Nhóm</option>
 							<option value="4">Chuyện trò - Tâm sự</option>
 							<option value="5">Chia sẻ kinh nghiệm</option>
 							<option value="6">Truyện cười</option>
 						</select>
 						<br><br>
-						<textarea name="content" id="editor2" cols="30" rows="10" >${post.content}</textarea>
+						<textarea name="content" id="editor1" cols="30" rows="10" >${post.content}</textarea>
 						<button id="saveButton" class="btn btn-primary mt-1">Đăng
 							bài</button>
 					</form>
@@ -158,7 +159,7 @@
 			<br>
 		</body>
 		<script>
-			var editor = new FroalaEditor('#editor2', {
+			var editor = new FroalaEditor('#editor1', {
 				imageUploadParam: 'image',
 				imageUploadURL: '/create/upload_image',
 				imageAllowedTypes: ['jpeg', 'jpg', 'png'],
@@ -207,12 +208,11 @@
 				//var data = { title: $("#title").val(), content: $('textarea').val(), category: $("#category").val() };
 				var data = {};
 				$("#form-content-editor").serializeArray().map(function (x) { data[x.name] = x.value; });
-				console.log(data);
 				$.ajax({
 					contentType: "application/json; charset=utf-8",
 					type: "POST",
 					headers: { "Authorization": getCookie("Authorization") },
-					url: "/create/save",
+					url: "/update/post/${post.idPost}",
 					data: JSON.stringify(data),
 					// prevent jQuery from automatically transforming the data into a query string
 					success: function (response) {
@@ -227,7 +227,10 @@
 				});
 			}
 		</script>
-	<script>
-		document.getElementById("category").value = "${post.category}";
-	</script>
+		<script>
+			document.getElementById("category").value = "${post.category}";
+		</script>
+
+
+
 		</html>

@@ -14,27 +14,27 @@ public class ProfileService {
 	@Autowired
 	ProfileRepository profile;
 	
-	Iterable<Profile> findAll(){
+	public Iterable<Profile> findAll(){
 		return profile.findAll();
 	}
 
-	com.forum.entity.Profile findById(String id) {
+	public com.forum.entity.Profile findById(String id) {
 		return profile.findById(id).get();
 	}
 
-	void delete(Profile userDelete) {
+	public void delete(Profile userDelete) {
 		profile.delete(userDelete);
 	}
 	
-	void deleteById(String id) {
+	public void deleteById(String id) {
 		profile.deleteById(id);
 	}
 	
-	void save(Profile profileSave) {
+	public void save(Profile profileSave) {
 		profile.save(profileSave);
 	}
 	
-	void saveAll(Iterable<Profile> profiles) {
+	public void saveAll(Iterable<Profile> profiles) {
 		profile.saveAll(profiles); 
 	}
 }

@@ -1,6 +1,13 @@
 package com.forum.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +44,28 @@ public class PostService {
 	
 	public void saveAll(Iterable<Post> posts) {
 		post.saveAll(posts); 
+	}
+	
+	public List<Post> getPageElement(Integer pageNo, Integer pageSize, int category){
+		Pageable paging = PageRequest.of(pageNo, pageSize);
+		Page<Post> pagedResult = post.findAll(paging, category);
+		
+		 if(pagedResult.hasContent()) {
+	            return pagedResult.getContent();
+	        } else {
+	            return new ArrayList<Post>();
+	       }
+	}
+	
+	public List<Post> getPageSortElement(Integer pageNo, Integer pageSize,  String sortBy, int category){
+		Pageable paging = PageRequest.of(pageNo, pageSize,  Sort.by(sortBy).descending());
+		Page<Post> pagedResult = post.findAll(paging, category);
+		
+		 if(pagedResult.hasContent()) {
+	            return  pagedResult.getContent();
+	        } else {
+	            return new ArrayList<Post>();
+	       }
 	}
 	
 }

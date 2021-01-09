@@ -1,5 +1,7 @@
 package com.forum.entity;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -52,8 +54,10 @@ public class Post {
 	@JoinColumn(name = "username")
 	User user;
 	
-	@OneToMany(mappedBy = "post", cascade=CascadeType.ALL)
-	List<Comment> comments;
+	String thumb;
+	
+	@OneToMany(mappedBy = "post", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	Collection<Comment> comments;
 	
 	@Column(name = "id_category")
 	@Min(value = 1, message = "Chọn danh mục")
@@ -112,11 +116,11 @@ public class Post {
 		this.user = user;
 	}
 
-	public List<Comment> getComments() {
+	public Collection<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<Comment> comments) {
+	public void setComments(Collection<Comment> comments) {
 		this.comments = comments;
 	}
 
@@ -134,6 +138,16 @@ public class Post {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	
+
+	public String getThumb() {
+		return thumb;
+	}
+
+	public void setThumb(String thumb) {
+		this.thumb = thumb;
 	}
 
 	@Override

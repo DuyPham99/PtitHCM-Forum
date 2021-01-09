@@ -1,5 +1,7 @@
 package com.forum.entity;
 
+
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,6 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -21,7 +24,7 @@ public class Comment {
 	@Id
 	@NotNull
 	@Column(name = "id_comment")
-	String idComment;
+	int idComment;
 	@NotNull
 	String content;
 	String reply;
@@ -29,6 +32,7 @@ public class Comment {
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy hh:MM:ss")
 	@Column(name = "date")
+	@CreationTimestamp
 	Date dateCreate;
 
 	@ManyToOne
@@ -43,7 +47,7 @@ public class Comment {
 		super();
 	}
 
-	public Comment(String idComment, String content, String reply, Date dateCreate, User user, Post post) {
+	public Comment(int idComment, String content, String reply, Date dateCreate, User user, Post post) {
 		super();
 		this.idComment = idComment;
 		this.content = content;
@@ -59,11 +63,11 @@ public class Comment {
 				+ dateCreate + ", user=" + user + ", post=" + post + "]";
 	}
 
-	public String getIdComment() {
+	public int getIdComment() {
 		return idComment;
 	}
 
-	public void setIdComment(String idComment) {
+	public void setIdComment(int idComment) {
 		this.idComment = idComment;
 	}
 
