@@ -21,11 +21,11 @@ public class LoginController {
 	@GetMapping("/logout") 	
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("sdfsdff");
 		if (auth != null) {
 		    new SecurityContextLogoutHandler().logout(request, response, auth);
 		}		
 		request.getSession().removeAttribute("username");
+		
 		return "redirect:/";
 	}	
 		

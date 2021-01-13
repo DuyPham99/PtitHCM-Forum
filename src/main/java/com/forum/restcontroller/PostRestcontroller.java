@@ -133,6 +133,7 @@ public class PostRestcontroller {
 		if(!pathImage.isEmpty() || pathImage == null) post.setThumb(pathImage);
 		else  post.setThumb("default.jpg");
 		postService.save(post);	
+		this.check = 0;
 		return "/pageContent/" + postRespository.getLastPostOfUser(post.getUser().getUsername()).getIdPost();
 	}	
 	

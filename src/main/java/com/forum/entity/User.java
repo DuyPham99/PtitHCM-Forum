@@ -3,6 +3,7 @@ package com.forum.entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -39,12 +40,15 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	String role;
 	
+	@Column(name = "delete_flag")
+	int deleteFlag;
+	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "username")
 	Profile profile;
 	
 	@OneToMany(mappedBy = "user")
-	List<Post> posts;
+	List<Post> posts; 
 	
 	@OneToMany(mappedBy = "user")
 	List<Comment> comments;
@@ -121,4 +125,14 @@ public class User {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
+
+	public int getDelete() {
+		return deleteFlag;
+	}
+
+	public void setDelete(int delete) {
+		this.deleteFlag = delete;
+	}
+	
+	
 }

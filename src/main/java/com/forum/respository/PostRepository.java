@@ -66,4 +66,7 @@ public interface PostRepository extends CrudRepository<Post, Integer>{
 	
 	@Query(value="SELECT count(*) FROM forum.post WHERE id_category = :category", nativeQuery = true)
 	public int countRecord(int category);
+	
+	@Query(value = "SELECT * FROM forum.post", nativeQuery = true)
+	Page<Post> findAllAdmin(Pageable pageable);
 }

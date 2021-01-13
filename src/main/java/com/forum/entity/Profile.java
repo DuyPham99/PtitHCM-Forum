@@ -29,21 +29,16 @@ public class Profile {
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Past
-	@NotNull(message = "Nhập ngày sinh!")
 	Date birthday;
 	
-	@NotNull(message = "Nhập giới tính!")
 	Boolean gender;
 	
-	@NotNull(message = "Nhập CMND!")
 	@Column(name = "identity_card")
 	String idCard;
 
-	@NotNull(message = "Nhập SĐT!")
 	@Column(name = "phone_number")
 	String phoneNumber;
 
-	@NotNull(message = "Nhập địa chỉ!")
 	String address;
 	
 	@OneToOne(fetch = FetchType.EAGER)

@@ -27,104 +27,7 @@
                 </head>
 
                 <body style="background:#f2f2f2;">
-                    <!-- Navigation & Header -->
-                    <header>
-                        <div class="container-fluid bg-white">
-                            <div class="row text-center border-bottom">
-                                <div class="col text-right">
-                                    <a href="#"><img src="/images/ptitLogo.jpg" height="70" class="logo" width="270"
-                                            style="width: 30%;"></a>
-                                </div>
-
-                                <div class="col-6">
-                                    <a href="#"><i class="fa fa-search"></i></a>
-                                    <input class="header-search" size="40" type="text"
-                                        placeholder="Tìm kiếm bài viết, tác giả,..." aria-label="Search">
-                                </div>
-                                <div class="col align-self-center">
-                                    <a href="#" class="text-header"> Đăng ký </a>
-                                    <a href="#" class="ml-5 text-header"> Đăng nhập</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </header>
-                    <nav class="navbar navbar-expand-sm navbar-dark sticky-top bg-white header p-auto">
-                        <div class="container">
-                            <ul class="nav col-md-12 nav-bar text-header" style="color: black;">
-                                <li class="nav-item ">
-                                    <a class="nav-link py-0" href="#">Trang chủ</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link py-0" href="#">Hoạt động</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link py-0" href="#">Học tập</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link py-0" href="#">Đội - Nhóm</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link py-0" href="#">Chuyện trò - tâm sự</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link py-0" href="#">Chia sẻ kinh nghiệm</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link py-0" href="#">Truyện cười</a>
-                                </li>
-                            </ul>
-                        </div>
-                        </div>
-                    </nav>
-                    <!--Start: Banner-->
-                    <div class="container ">
-                        <div id="demo" class="carousel slide" data-ride="carousel">
-                            <!-- Indicators -->
-                            <ul class="carousel-indicators">
-                                <li data-target="#demo" data-slide-to="0" class="active"></li>
-                                <li data-target="#demo" data-slide-to="1"></li>
-                                <li data-target="#demo" data-slide-to="2"></li>
-                            </ul>
-
-                            <!-- The slideshow -->
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="https://spiderum.com/assets/images/banner/cover-spiderum-not-login.jpg"
-                                        alt="Los Angeles" width="1100" height="300">
-                                    <div class="carousel-caption">
-                                        <h3>Los Angeles</h3>
-                                        <p>We had such a great time in LA!</p>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://spiderum.com/assets/images/banner/cover-spiderum-not-login.jpg"
-                                        alt="Chicago" width="1100" height="500">
-                                    <div class="carousel-caption">
-                                        <h3>Los Angeles</h3>
-                                        <p>We had such a great time in LA!</p>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://spiderum.com/assets/images/banner/cover-spiderum-not-login.jpg"
-                                        alt="New York" width="1100" height="500">
-                                    <div class="carousel-caption">
-                                        <h3>Los Angeles</h3>
-                                        <p>We had such a great time in LA!</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Left and right controls -->
-                            <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                                <span class="carousel-control-prev-icon"></span>
-                            </a>
-                            <a class="carousel-control-next" href="#demo" data-slide="next">
-                                <span class="carousel-control-next-icon"></span>
-                            </a>
-                        </div>
-                    </div>
-                    <!--End: Banner-->
+                    <jsp:include page="header.jsp"></jsp:include>
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-2 mt-3">
@@ -132,12 +35,15 @@
                             </div>
                             <div class="col-md-8 p-0 new-feed profile">
                                 <div class="row mt-5" style="margin-left: 8em;">
-                                    <img id="profileImage" class="far fa-user" height="70" width="70"
-                                        style="float: left; width:auto; margin-left: 48px;  background-image:none;"
-                                        src="/images/avt.png" />
-                                    <input id="imageUpload" type="file" name="avatar" placeholder="Photo" required=""
-                                        capture>
-                                    <textarea name="quote" cols="51" style="margin-left: 3em;"> </textarea>
+                                    <form action="/image/save" id="imageForm" enctype="multipart/form-data"
+                                        method="POST">
+                                        <img id="profileImage" class="far fa-user" height="70" width="70"
+                                            style="float: left; width:auto; margin-left: 48px;  background-image:none;"
+                                            src="http://localhost:8000/${profile.avatar}" />
+                                        <input id="imageUpload" type="file" name="avatar" placeholder="Photo"
+                                            required="" onchange="submitFunction()" capture>
+                                    </form>
+                                    <!-- <textarea name="quote" cols="51" style="margin-left: 3em;"> </textarea> -->
                                 </div>
 
                                 <form action="#" method="get" class="" id="setting">
@@ -162,7 +68,9 @@
                                             <input type="text" name="address" id="address" value="${profile.address}">
 
                                             <br><br>
-                                            <a href="#">Thay đổi mật khẩu</a>
+                                            <a href="#" data-toggle="modal" data-target="#myModal">Thay đổi mật khẩu</a>
+
+
                                         </div>
                                         <div class=" col-md-6">
                                             <label>CMND: </label>
@@ -196,7 +104,36 @@
                                         onclick="window.location.reload()"> Hủy bỏ </button>
                                     <!-- End: Row 1-->
                                 </form>
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close"
+                                                    data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title"></h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="" method="POST" id="changePassword">
+                                                    <div>Mật khẩu cũ:</div>
+                                                    <input type="password" id="oldPassword" name="oldPassword"/>
+                                                    <div>Mật khẩu mới:</div>
+                                                    <input type="password" id="newPassword" name="newPassword" />
+                                                    <div>Nhập lại mật khẩu:</div>
+                                                    <input type="password" id="retypePassword" name="retypePassword" />
+                                                    <br><br>
+                                                    <button type="submit" id="submitPassword" >Xác nhận</button>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
 
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-2">
 
@@ -235,15 +172,15 @@
                         // Get form
                         // var form = $('#form-content-editor')[0];
                         //var data = { title: $("#title").val(), content: $('textarea').val(), category: $("#category").val() };
-                        var data = {};
-                        $("#setting").serializeArray().map(function (x) { data[x.name] = x.value; });
-                        console.log(data);
+                        var data1 = {};
+                        $("#setting").serializeArray().map(function (x) { data1[x.name] = x.value; });
+                        console.log(data1);
                         $.ajax({
                             contentType: "application/json; charset=utf-8",
                             type: "POST",
                             headers: { "Authorization": getCookie("Authorization") },
                             url: "/create/setting/save",
-                            data: JSON.stringify(data),
+                            data: JSON.stringify(data1),
                             // prevent jQuery from automatically transforming the data into a query string
                             success: function (response) {
                                 window.location.href = response;
@@ -259,6 +196,44 @@
                 </script>
                 <script>
                     if (${ profile.gender } == false) document.getElementById("female").checked = true;
+
                 </script>
+                <script>
+
+                    function submitFunction() {
+                        document.getElementById("imageForm").submit();// Form submission
+                    }
+                </script>
+                <script>
+                    $(document).ready(function () {
+                        $("#submitPassword").click(function (event) {
+                            event.preventDefault();
+                            // var formStatus = $("#form-content-editor").validate().form();
+                            // if (formStatus != 1) return;
+                            changePassword();
+                        });
+                    });
+                    function changePassword() {
+                        var data = {};
+                        $("#changePassword").serializeArray().map(function (x) { data[x.name] = x.value; });
+                        console.log(data);
+                        $.ajax({
+                            contentType: "application/json; charset=utf-8",
+                            type: "POST",
+                            headers: { "Authorization": getCookie("Authorization") },
+                            url: "/account/update/password",
+                            data: JSON.stringify(data),
+                            // prevent jQuery from automatically transforming the data into a query string
+                            success: function (response) {
+                                window.location.reload();
+                            },
+                            error: function (xhr, ajaxOptions, error) {
+                                alert(xhr.responseText);
+
+                            }
+                        });
+                    }
+                </script>
+
 
                 </html>

@@ -31,6 +31,7 @@
 		</head>
 
 		<body style="background: #f2f2f2;">
+
 			<!-- Navigation & Header -->
 			<header>
 				<div class="container-fluid bg-white">
@@ -55,7 +56,8 @@
 								</a>
 							</button>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="">Cài đặt</a>
+								<a class="dropdown-item" href="/manage-post-user">Quản lý bài viết</a>
+								<a class="dropdown-item" href="/setting">Cài đặt</a>
 								<a class="dropdown-item" href="/logout" onclick="clearCookies()">Đăng xuất</a>
 							</div>
 						</div>

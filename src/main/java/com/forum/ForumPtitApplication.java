@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.forum.controller.LoggerInterceptor;
 import com.forum.security.AuthenticationRequest;
 import com.forum.security.CustomUserDetail;
 
@@ -29,7 +30,7 @@ import com.forum.security.CustomUserDetail;
 @SpringBootApplication
 @ComponentScan("com.forum")
 public class ForumPtitApplication extends SpringBootServletInitializer {
- 
+	
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(ForumPtitApplication.class);

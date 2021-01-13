@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.forum.controller.LoggerInterceptor;
 import com.forum.security.JwtRequestFilter;
 
 @EnableWebSecurity
@@ -33,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //		public PasswordEncoder passwordEncoder() {
 //			return NoOpPasswordEncoder.getInstance();
 //		}
-
+	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

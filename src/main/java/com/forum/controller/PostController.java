@@ -45,7 +45,6 @@ public class PostController {
 	@GetMapping("/post-update")
 	public String updatePost(@RequestParam("id") int  idPost, ModelMap model) {
 		model.addAttribute("post", postSerivice.findById(idPost));
-		System.out.println( postSerivice.findById(idPost).getContent());
 		return "post-update";
 	}
 	

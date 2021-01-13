@@ -31,12 +31,13 @@ public class RegisterRestController {
 		if (userService.isValidAccount(user) == 1) {
 			return new ResponseEntity<>("User was existed!", HttpStatus.BAD_REQUEST);
 		} else if (userService.isValidAccount(user) == 2) {
-			return new ResponseEntity<>("User was existed!", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Email was existed!", HttpStatus.BAD_REQUEST);
 		}
 		user.setRole("USER");
 		user.setPassword(userService.encrypPassword(user.getPassword()));
 		
 		profile.setUsername(user.getUsername());
+		profile.setAvatar("images/user.png");
 		
 		userService.save(user);	
 		profileService.save(profile);

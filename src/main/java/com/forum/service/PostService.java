@@ -68,4 +68,14 @@ public class PostService {
 	       }
 	}
 	
+	public List<Post> getPageSortElementAdmin(Integer pageNo, Integer pageSize,  String sortBy){
+		Pageable paging = PageRequest.of(pageNo, pageSize,  Sort.by(sortBy).descending());
+		Page<Post> pagedResult = post.findAllAdmin(paging);
+		
+		 if(pagedResult.hasContent()) {
+	            return  pagedResult.getContent();
+	        } else {
+	            return new ArrayList<Post>();
+	       }
+	}
 }
